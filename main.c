@@ -5,9 +5,10 @@
 
 
 int main() {
-
+  // temel değişkenler tanımlanıyor 
   int matrix_raw,matrix_column,Food_number;
   int snake = 1;
+  int in_game = 1;
 
   printf("Enter the matrix size\n");
   scanf("%d  %d", &matrix_raw , &matrix_column);
@@ -26,15 +27,25 @@ int main() {
       map[i][j] = '_';
     }
   }
-  
- for (int i = 0; i < matrix_raw ; i++){
-  for (int j = 0; j < matrix_column ; j++){
-    printf("%c" , map[i][j]);
+ 
+  int X_Coordinate, Y_Coordinate;
+  int Snake_Size_Array[Food_number + 1];
+  for (int i = 0 ; i < Food_number ; i++){
+    X_Coordinate = rand() % matrix_raw  + 1;
+    Y_Coordinate = rand() % matrix_column + 1;
+    map[X_Coordinate][Y_Coordinate] = 1; 
   }
-  printf("\n");
- }
 
-
+  
+  for (int i = 0; i < matrix_raw ; i++){
+    for (int j = 0; j < matrix_column ; j++){
+      if(map[i][j] != 1 )
+        printf("%c" , map[i][j]);
+      else
+        printf("%d" , map[X_Coordinate][Y_Coordinate]);
+    }
+    printf("\n");
+  }
 
 
 
