@@ -20,11 +20,14 @@ int main() {
   printf("Enter food number\n");
   scanf("%d" , &Food_Number);
 
+  int Food_Number_Backup = Food_Number;
+  
   int Snake_Size[Food_Number];
   Snake_Size[0] = 1;
   for(int i = 1 ; i < Food_Number ; i++){
     Snake_Size[i] = -1;
   }
+  
   
   int Matrix_Size = Matrix_Raw*Matrix_Column;
   if(Food_Number > Matrix_Size){
@@ -67,7 +70,9 @@ int main() {
   
   int Food_Eaten = 0;
 
-  int Food_Number_Backup = Food_Number;
+  int Snake_Size_index = 1;
+
+  
   
   int Length_Controller = 1;
  
@@ -81,33 +86,53 @@ int main() {
     scanf("%c" , &Move);
 
     if(Move == UP){
-      if(map[Snake_X_Coordinate-1][Snake_Y_Coordinate] == '0')
-        Food_Number--;
+      Move_Count = Move_Count + 1;
       map[Snake_X_Coordinate][Snake_Y_Coordinate] = -1;
+      if(map[Snake_X_Coordinate-1][Snake_Y_Coordinate] == '0'){
+        Food_Number--;
+        printf("%d  %d ------------" , Snake_Size_index , Snake_Size[Snake_Size_index]);
+        Snake_Size[Snake_Size_index] = Snake_Size_index+1;
+        Snake_Size_index++;
+        map[Snake_X_Coordinate][Snake_Y_Coordinate] = Snake_Size[Snake_Size_index-1];
+      }
       Snake_X_Coordinate--;
       map[Snake_X_Coordinate][Snake_Y_Coordinate] = 1;
     }else if(Move == DOWN){
-      if(map[Snake_X_Coordinate+1][Snake_Y_Coordinate] == '0')
-        Food_Number--;
+      Move_Count = Move_Count + 1;
       map[Snake_X_Coordinate][Snake_Y_Coordinate] = -1;
+      if(map[Snake_X_Coordinate+1][Snake_Y_Coordinate] == '0'){
+        Food_Number--;
+        Snake_Size[Snake_Size_index] = Snake_Size_index+1;
+        Snake_Size_index++;
+        map[Snake_X_Coordinate][Snake_Y_Coordinate] = Snake_Size[Snake_Size_index-1];
+      }
       Snake_X_Coordinate++;
       map[Snake_X_Coordinate][Snake_Y_Coordinate] = 1;
     }else if(Move == LEFT){
-      if(map[Snake_X_Coordinate][Snake_Y_Coordinate-1] == '0')
-        Food_Number--;
+      Move_Count = Move_Count + 1;
       map[Snake_X_Coordinate][Snake_Y_Coordinate] = -1;
+      if(map[Snake_X_Coordinate][Snake_Y_Coordinate-1] == '0'){
+        Food_Number--;
+        Snake_Size[Snake_Size_index] = Snake_Size_index+1;
+        Snake_Size_index++;
+        map[Snake_X_Coordinate][Snake_Y_Coordinate] = Snake_Size[Snake_Size_index-1];
+      }
       Snake_Y_Coordinate--;
       map[Snake_X_Coordinate][Snake_Y_Coordinate] = 1;
     }else if(Move == RIGHT){
-      if(map[Snake_X_Coordinate][Snake_Y_Coordinate+1] == '0')
-        Food_Number--;
+      Move_Count = Move_Count + 1;
       map[Snake_X_Coordinate][Snake_Y_Coordinate] = -1;
+      if(map[Snake_X_Coordinate][Snake_Y_Coordinate+1] == '0'){
+        Food_Number--;
+        Snake_Size[Snake_Size_index] = Snake_Size_index+1;
+        Snake_Size_index++;
+        map[Snake_X_Coordinate][Snake_Y_Coordinate] = Snake_Size[Snake_Size_index-1];
+      }
       Snake_Y_Coordinate++;
       map[Snake_X_Coordinate][Snake_Y_Coordinate] = 1;
 
     }
-
-    Move_Count = Move_Count + 1;
+    
     
 
     for (int i = 0; i < Matrix_Raw ; i++){
